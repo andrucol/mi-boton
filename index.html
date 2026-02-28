@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperio Studio | Vive la experencia imperial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --oro-rosa: linear-gradient(45deg, #b76e79, #dfa3ab, #eec0c8);
+            --rosa-pastel: #fff5f7;
+            --texto-oscuro: #5d4037;
+            --sombra-oro: rgba(183, 110, 121, 0.3);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--rosa-pastel);
+            background-image: radial-gradient(#fce4ec 1px, transparent 1px);
+            background-size: 20px 20px; /* Fondo con puntos sutiles */
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--texto-oscuro);
+        }
+
+        .container {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px var(--sombra-oro);
+            border: 1px solid white;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0;
+            background: var(--oro-rosa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            font-weight: 800;
+        }
+
+        .anuncio {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 2.5rem;
+            color: #b76e79;
+            font-weight: 400;
+        }
+
+        /* Contenedor de botones principales */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .boton-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            color: #b76e79;
+            padding: 14px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 15px;
+            border: 2px solid #f8bbd0;
+            transition: all 0.3s ease;
+        }
+
+        .boton-link:hover {
+            background: var(--oro-rosa);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.02);
+        }
+
+        /* Redes Sociales Inferiores */
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            font-size: 24px;
+            color: #b76e79;
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: #dfa3ab;
+            transform: translateY(-5px);
+        }
+
+        i { width: 20px; } /* Alineación de iconos */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>IMPERIO STUDIO</h1>
+        <p class="anuncio">Vive la experiencia imperial</p>
+        
+        <div class="links-container">
+            <a href="https://script.google.com/macros/s/AKfycbx2x0pKe6bS2rYDOTG1PwiLdENvQrHgTOV4A8Ox8C7rs1C3Z17576r7xnZBSicLX9GR/exec" class="boton-link">
+                <i class="fa-solid fa-calendar-check"></i> Agenda Online
+            </a>
+            <a href="https://wa.me/573132296331" class="boton-link">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+
+        <div class="social-media">
+            <a href="https://instagram.com/elimperiodelasunas_" target="_blank" class="social-icon">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/elimperiodelasunas" target="_blank" class="social-icon">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://www.tiktok.com/@elimperiodelasunas_" target="_blank" class="social-icon">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
