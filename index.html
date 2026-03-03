@@ -20,7 +20,7 @@
             min-height: 100vh;
             background-color: var(--rosa-pastel);
             background-image: radial-gradient(#fce4ec 1px, transparent 1px);
-            background-size: 20px 20px; /* Fondo con puntos sutiles */
+            background-size: 20px 20px;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--texto-oscuro);
@@ -56,12 +56,17 @@
             font-weight: 400;
         }
 
-        /* Contenedor de botones principales */
         .links-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             margin-bottom: 2rem;
+        }
+
+        .whatsapp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         .boton-link {
@@ -80,6 +85,11 @@
             transition: all 0.3s ease;
         }
 
+        .boton-wp {
+            padding: 10px 5px;
+            font-size: 14px;
+        }
+
         .boton-link:hover {
             background: var(--oro-rosa);
             color: white;
@@ -87,7 +97,6 @@
             transform: scale(1.02);
         }
 
-        /* Redes Sociales Inferiores */
         .social-media {
             display: flex;
             justify-content: center;
@@ -107,7 +116,7 @@
             transform: translateY(-5px);
         }
 
-        i { width: 20px; } /* Alineación de iconos */
+        i { width: 20px; }
     </style>
 </head>
 <body>
@@ -117,26 +126,46 @@
         <p class="anuncio">Vive la experiencia imperial</p>
         
         <div class="links-container">
-            <a href="https://script.google.com/macros/s/AKfycbx2x0pKe6bS2rYDOTG1PwiLdENvQrHgTOV4A8Ox8C7rs1C3Z17576r7xnZBSicLX9GR/exec" class="boton-link">
+            <a href="https://script.google.com/macros/s/AKfycbx2x0pKe6bS2rYDOTG1PwiLdENvQrHgTOV4A8Ox8C7rs1C3Z17576r7xnZBSicLX9GR/exec" class="boton-link" onclick="registrarClic('Agenda Online')">
                 <i class="fa-solid fa-calendar-check"></i> Agenda Online
             </a>
-            <a href="https://wa.me/573132296331" class="boton-link">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp Restrepo
-            </a>
+
+            <div class="whatsapp-grid">
+                <a href="https://wa.me/573132296331" class="boton-link boton-wp" onclick="registrarClic('WA Restrepo')"><i class="fa-brands fa-whatsapp"></i> Restrepo</a>
+                <a href="https://wa.me/573108026731" class="boton-link boton-wp" onclick="registrarClic('WA Kennedy')"><i class="fa-brands fa-whatsapp"></i> Kennedy</a>
+                <a href="https://wa.me/573106684514" class="boton-link boton-wp" onclick="registrarClic('WA Engativa')"><i class="fa-brands fa-whatsapp"></i> Engativá</a>
+                <a href="https://wa.me/573132803075" class="boton-link boton-wp" onclick="registrarClic('WA Teusaquillo')"><i class="fa-brands fa-whatsapp"></i> Teusaquillo</a>
+                <a href="https://wa.me/573134879119" class="boton-link boton-wp" onclick="registrarClic('WA Modelia')"><i class="fa-brands fa-whatsapp"></i> Modelia</a>
+                <a href="https://wa.me/573106702672" class="boton-link boton-wp" onclick="registrarClic('WA Suba')"><i class="fa-brands fa-whatsapp"></i> Suba</a>
+                <a href="https://wa.me/573107961512" class="boton-link boton-wp" style="grid-column: span 2;" onclick="registrarClic('WA Soacha')"><i class="fa-brands fa-whatsapp"></i> Soacha</a>
+            </div>
         </div>
 
         <div class="social-media">
-            <a href="https://instagram.com/elimperiodelasunas_" target="_blank" class="social-icon">
+            <a href="https://instagram.com/elimperiodelasunas_" target="_blank" class="social-icon" onclick="registrarClic('Instagram')">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="https://www.facebook.com/elimperiodelasunas" target="_blank" class="social-icon">
+            <a href="https://www.facebook.com/elimperiodelasunas" target="_blank" class="social-icon" onclick="registrarClic('Facebook')">
                 <i class="fa-brands fa-facebook"></i>
             </a>
-            <a href="https://www.tiktok.com/@elimperiodelasunas_" target="_blank" class="social-icon">
+            <a href="https://www.tiktok.com/@elimperiodelasunas_" target="_blank" class="social-icon" onclick="registrarClic('TikTok')">
                 <i class="fa-brands fa-tiktok"></i>
             </a>
         </div>
     </div>
 
+    <script>
+        const API_URL = "https://api-login.andres-electronica2.workers.dev";
+
+        function registrarClic(nombreBoton) {
+            // keepalive: true asegura que la petición llegue al servidor aunque el cliente cambie de página instantáneamente
+            fetch(API_URL + "/registrar-clic", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ boton: nombreBoton }),
+                keepalive: true 
+            }).catch(error => console.error("Error al registrar métrica:", error));
+        }
+    </script>
 </body>
 </html>
