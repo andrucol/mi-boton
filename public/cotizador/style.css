@@ -18,7 +18,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: var(--rosa-pastel);
-    background-image: radial-gradient(#fce4ec 1px, transparent 1px);
+    background-image: radial-gradient(#e83b75 1px, transparent 1px);
     background-size: 20px 20px;
     color: var(--texto-oscuro);
 }
