@@ -5,7 +5,7 @@ const corsHeaders = {
 };
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     // 1. PERMISO CORS
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
@@ -26,6 +26,13 @@ export default {
         return new Response("Error al registrar clic: " + error.message, { status: 400, headers: corsHeaders });
       }
     }
+
+    try {
+      return await env.ASSETS.fetch(request);
+    } catch(e){
+      return new Response("Pagina no encontrada", {status: 404});
+    }
+      
 
     // RUTA POR DEFECTO
     return new Response("API de métricas funcionando.", { status: 200, headers: corsHeaders });
