@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador de Uñas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cotizador-container">
+        <h1>Cotizador de Uñas</h1>
+        
+        <div class="form-group">
+            <label for="base">Tipo de Base:</label>
+            <select id="base" name="base" onchange="verificarFormulario()">
+                <option value="">Seleccione una opción</option>
+                <option value="acrilico">Acrílico</option>
+                <option value="polygel">Polygel</option>
+                <option value="rubber">Rubber</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="largo-container" style="display: none;">
+            <label for="largo">Largo (3 al 12):</label>
+            <select id="largo" name="largo" onchange="verificarFormulario()">
+                <option value="">Seleccione el largo</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="servicio">Tipo de Servicio:</label>
+            <select id="servicio" name="servicio" onchange="verificarFormulario()">
+                <option value="">Seleccione un servicio</option>
+                <option value="montura">Montura</option>
+                <option value="retoque">Retoque</option>
+            </select>
+        </div>
+
+        <button id="btn-cotizar" onclick="calcularTotal()" disabled>Cotizar</button>
+
+        <div class="resultado" id="resultado-container" style="display: none;">
+            <h2>Total estimado: <span id="total">$0</span></h2>
+        </div>
+    </div>
+
+    <!-- Script para la lógica del cotizador -->
+    <script>
+        function verificarFormulario() {
+            const baseType = document.getElementById('base').value;
+            const largoType = document.getElementById('largo').value;
+            const servicioType = document.getElementById('servicio').value;
+            const largoContainer = document.getElementById('largo-container');
+            const btnCotizar = document.getElementById('btn-cotizar');
+            const largoSelect = document.getElementById('largo');
+            
+            // Mostrar "largo" solo si es acrílico o polygel
+            if (baseType === 'acrilico' || baseType === 'polygel') {
+                largoContainer.style.display = 'block';
+            } else {
+                largoContainer.style.display = 'none';
+                largoSelect.value = ''; // Resetear el largo
+            }
+
+            // Validar si todos los campos requeridos están llenos
+            let todoLleno = false;
+            if (baseType !== '' && servicioType !== '') {
+                if (baseType === 'acrilico' || baseType === 'polygel') {
+                    // Si es acrilico o polygel, el largo es obligatorio
+                    if (largoSelect.value !== '') {
+                        todoLleno = true;
+                    }
+                } else {
+                    // Si es rubber, no requiere largo
+                    todoLleno = true;
+                }
+            }
+
+            // Habilitar o deshabilitar botón
+            btnCotizar.disabled = !todoLleno;
+            
+            // Ocultar resultado al cambiar cualquier opción para obligar a cotizar de nuevo
+            document.getElementById('resultado-container').style.display = 'none';
+        }
+
+        function calcularTotal() {
+            const baseType = document.getElementById('base').value;
+            const largoType = document.getElementById('largo').value;
+            const servicioType = document.getElementById('servicio').value;
+            
+            let total = 0;
+
+            // Precio base
+            if (baseType === 'acrilico') {
+                total += 120000;
+            } else if (baseType === 'polygel') {
+                total += 110000;
+            } else if (baseType === 'rubber') {
+                total += 90000;
+            }
+
+            // Sumar precio por largo adicional
+            // Asumimos que el largo 3 es el base, cada nivel extra (4, 5, 6...) suma 6000
+            if ((baseType === 'acrilico' || baseType === 'polygel') && largoType !== '') {
+                const largoNum = parseInt(largoType);
+                if (largoNum > 3) {
+                    total += (largoNum - 3) * 6000;
+                }
+            }
+
+            // Descuento si es retoque (baja un 30%)
+            if (servicioType === 'retoque') {
+                total = total * 0.70;
+            }
+
+            // Formatear precio para Colombia ($)
+            const formateador = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            });
+
+            document.getElementById('total').innerText = formateador.format(total);
+            document.getElementById('resultado-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
