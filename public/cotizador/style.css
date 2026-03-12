@@ -4,30 +4,44 @@
     padding: 0;
 }
 
+:root {
+    --oro-rosa: linear-gradient(45deg, #b76e79, #dfa3ab, #eec0c8);
+    --rosa-pastel: #fff5f7;
+    --texto-oscuro: #5d4037;
+    --sombra-oro: rgba(183, 110, 121, 0.3);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Soft pink/nude background typical for beauty salons */
-    background-color: #fce4ec; 
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-color: var(--rosa-pastel);
+    background-image: radial-gradient(#fce4ec 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--texto-oscuro);
 }
 
 .cotizador-container {
-    background-color: #ffffff;
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15);
-    width: 100%;
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px var(--sombra-oro);
+    border: 1px solid white;
+    width: 90%;
     max-width: 400px;
 }
 
 h1 {
-    color: #c2185b; /* Elegant deep pink */
-    text-align: center;
+    font-size: 2.2rem;
     margin-bottom: 25px;
-    font-size: 26px;
+    background: var(--oro-rosa);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 3px;
+    font-weight: 800;
+    text-align: center;
 }
 
 .form-group {
@@ -37,7 +51,7 @@ h1 {
 label {
     display: block;
     margin-bottom: 8px;
-    color: #4a4a4a;
+    color: var(--texto-oscuro);
     font-weight: 600;
     font-size: 14px;
 }
@@ -45,42 +59,43 @@ label {
 select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #f8bbd0;
-    border-radius: 8px;
+    border: 2px solid #dfa3ab;
+    border-radius: 15px;
     font-size: 16px;
-    color: #333;
+    color: var(--texto-oscuro);
     outline: none;
     transition: all 0.3s ease;
     background-color: #fff;
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c2185b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b76e79' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
 }
 
 select:focus {
-    border-color: #c2185b;
-    box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.1);
+    border-color: #b76e79;
+    box-shadow: 0 0 0 3px var(--sombra-oro);
 }
 
 button {
     width: 100%;
     padding: 14px;
-    background-color: #c2185b;
+    background: var(--oro-rosa);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 15px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: all 0.3s ease;
     margin-top: 10px;
 }
 
 button:hover:not(:disabled) {
-    background-color: #ad1457;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px var(--sombra-oro);
 }
 
 button:active:not(:disabled) {
@@ -88,7 +103,7 @@ button:active:not(:disabled) {
 }
 
 button:disabled {
-    background-color: #f8bbd0;
+    background: #eec0c8;
     cursor: not-allowed;
     color: rgba(255, 255, 255, 0.7);
 }
@@ -97,18 +112,20 @@ button:disabled {
     margin-top: 25px;
     text-align: center;
     padding-top: 20px;
-    border-top: 2px dashed #f8bbd0;
+    border-top: 2px dashed #dfa3ab;
 }
 
 h2 {
-    color: #4a4a4a;
+    color: var(--texto-oscuro);
     font-size: 20px;
     font-weight: 500;
 }
 
 #total {
     display: block;
-    color: #c2185b;
+    background: var(--oro-rosa);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
     font-size: 32px;
     margin-top: 10px;
