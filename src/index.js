@@ -1,11 +1,16 @@
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
-
 export default {
   async fetch(request, env, ctx) {
+
+    const origen = request.headers.get("Origin");
+    const dominiosPermitidos = ["https://netosalon.com"];
+    const esValido = dominiosPermitidos.includes(origen);
+
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": esValido ? origen : "",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
+
     // 1. PERMISO CORS
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
@@ -20,7 +25,7 @@ export default {
         await env.DB.prepare(
           "INSERT INTO clics (boton) VALUES (?)"
         ).bind(datos.boton).run();
-        
+
         return new Response("Clic registrado exitosamente", { status: 201, headers: corsHeaders });
       } catch (error) {
         return new Response("Error al registrar clic: " + error.message, { status: 400, headers: corsHeaders });
@@ -29,12 +34,9 @@ export default {
 
     try {
       return await env.ASSETS.fetch(request);
-    } catch(e){
-      return new Response("Pagina no encontrada", {status: 404});
+    } catch (e) {
+      return new Response("Pagina no encontrada", { status: 404 });
     }
-      
 
-    // RUTA POR DEFECTO
-    return new Response("API de métricas funcionando.", { status: 200, headers: corsHeaders });
   }
 };
