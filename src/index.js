@@ -11,14 +11,19 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // 1. PERMISO CORS
+    // 1. PERMISO CORS (Preflight para navegadores)
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
+    // 2. BLOQUEO REAL DE SEGURIDAD (Detiene PowerShell, Postman, etc.)
+    if (!esValido) {
+      return new Response("Acceso denegado: Origen no autorizado", { status: 403, headers: corsHeaders });
+    }
+
     const url = new URL(request.url);
 
-    // 2. RUTA PARA REGISTRAR CLICS
+    // 3. RUTA PARA REGISTRAR CLICS
     if (request.method === "POST" && url.pathname === "/registrar-clic") {
       const datos = await request.json();
       try {
@@ -28,7 +33,7 @@ export default {
 
         return new Response("Clic registrado exitosamente", { status: 201, headers: corsHeaders });
       } catch (error) {
-        return new Response("Error al registrar clic: " + error.message, { status: 400, headers: corsHeaders });
+        return new Response("Error al registrar clic", { status: 400, headers: corsHeaders });
       }
     }
 
