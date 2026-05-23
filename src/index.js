@@ -2,7 +2,7 @@ export default {
   async fetch(request, env, ctx) {
 
     const origen = request.headers.get("Origin");
-    const dominiosPermitidos = ["https://netosalon.com"];
+    const dominiosPermitidos = ["https://netosalon.com", "https://netosalon.com/"];
     const esValido = dominiosPermitidos.includes(origen);
 
     const corsHeaders = {
