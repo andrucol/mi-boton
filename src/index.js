@@ -1,8 +1,11 @@
 export default {
   async fetch(request, env, ctx) {
 
+    const url = new URL(request.url);
+
+    // ─── CORS CONFIG ───
     const origen = request.headers.get("Origin");
-    const dominiosPermitidos = ["https://netosalon.com", "https://netosalon.com/dtfbogota"];
+    const dominiosPermitidos = ["https://netosalon.com"];
     const esValido = dominiosPermitidos.includes(origen);
 
     const corsHeaders = {
@@ -16,15 +19,13 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // 2. BLOQUEO REAL DE SEGURIDAD (Detiene PowerShell, Postman, etc.)
-    if (!esValido) {
-      return new Response("Acceso denegado: Origen no autorizado", { status: 403, headers: corsHeaders });
-    }
-
-    const url = new URL(request.url);
-
-    // 3. RUTA PARA REGISTRAR CLICS
+    // 2. RUTA API: REGISTRAR CLICS (solo POST, con validación de Origin)
     if (request.method === "POST" && url.pathname === "/registrar-clic") {
+      // Bloqueo de seguridad: solo dominios permitidos pueden usar la API
+      if (!esValido) {
+        return new Response("Acceso denegado: Origen no autorizado", { status: 403, headers: corsHeaders });
+      }
+
       const datos = await request.json();
       try {
         await env.DB.prepare(
@@ -37,6 +38,7 @@ export default {
       }
     }
 
+    // 3. PÁGINAS ESTÁTICAS (/, /dtfbogota/, /cotizador/, /dtfbogota/assets/, etc.)
     try {
       return await env.ASSETS.fetch(request);
     } catch (e) {
